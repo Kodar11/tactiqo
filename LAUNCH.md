@@ -9,29 +9,35 @@ instead of inventing one. Fill these in, then rebuild.
 |---|---|---|
 | `site.url` | Canonical URLs, `metadataBase` for social images, `robots.txt` allows crawling, `sitemap.xml` lists pages | Unset: robots disallow everything, sitemap is empty, build warns about `metadataBase` |
 | `site.playStoreUrl` | Header, hero, About and final CTA link to Google Play ("Get it on Google Play") | Unset: those buttons point to the app preview (`/#app`), and the final CTA says the app isn't available to download yet |
-| `site.supportEmail` | Contact page shows the address; legal pages link to it | Unset: Contact page says no support channel exists yet |
-| `site.owner.name` | Copyright line, legal pages | Unset: copyright reads "Tactiqo"; legal pages show a bracketed placeholder |
-| `site.owner.jurisdiction` | Terms: governing law, liability section | Placeholder |
-| `site.legal.privacyEffectiveDate`, `site.legal.termsEffectiveDate` | Shown on the legal pages | Placeholder |
-| `site.legal.minimumAge` | Privacy (children) and Terms (eligibility) | Placeholder |
+| `site.supportEmail` | Contact page shows the address; legal pages and `/delete-account` link to it | Set to `tanmaychavan13@gmail.com` |
+| `site.owner.name` | Copyright line only (legal pages use neutral wording) | Unset: copyright reads "Tactiqo" |
+| `site.legal.privacyEffectiveDate`, `site.legal.termsEffectiveDate` | Shown on the legal pages | Set to 28 October 2026 |
+| `site.legal.minimumAge` | Privacy (children) and Terms (eligibility) | Set to 13 |
+| `site.legal.dataRegion` | Privacy: where app data is stored | Unset: bracketed placeholder |
 
-The Privacy Policy and Terms are marked **Draft**, carry `noindex`, and stay out of the sitemap until `owner.name` and both
-effective dates are set (`legalReady()`).
+The Privacy Policy and Terms are marked **Draft**, carry `noindex`, and stay out of the sitemap until both effective dates,
+the minimum age and the data region are set (`legalReady()`). The Terms have no governing-law clause, by decision.
 
-## Facts the Privacy Policy still needs (shown in brackets on the page)
+## Facts the Privacy Policy still needs
 
-- `site.owner.address`, if you choose or are required to publish one (Google Play may require it).
-- Website hosting provider and how long it keeps server logs.
-- The Supabase project's region (where app data is stored).
-- How long app data is kept for an anonymous account.
-- **A deletion route.** The app has no way to delete everything stored for an account, and support can't identify an
-  anonymous user unless the app shows them an ID to quote. Google Play requires apps that create accounts (anonymous ones
-  included) to offer account and data deletion. Decide on a mechanism and update the policy.
+- **The Supabase project's region** (Project Settings → General in the Supabase dashboard). The repository doesn't record
+  it. Set `site.legal.dataRegion`, e.g. "the EU (Frankfurt)".
+
+## Account deletion, as described on `/delete-account` and in the Privacy Policy
+
+Audited from the app's working tree (October 2026): Settings → Account → Delete account calls `delete_my_account()`
+(migration `20261028140000_delete_account.sql`), which deletes the caller's `auth.users` row and, by cascade, every
+player table. Its tests (`supabase/__tests__/account.test.ts`) pass locally. Before publishing, make sure that migration
+is applied to the production Supabase project and the app build with the button is the one users have; until then the
+button fails and deletes nothing. If the flow changes, update `/delete-account`, the Privacy Policy and the Terms.
+
+There is no scheduled cleanup in the migrations, so the policy says data is kept until the account is deleted. If you add
+a retention job (or one exists in the dashboard), update the "How long it is kept" section.
 
 ## Have a lawyer review
 
 The legal pages describe the app's actual behaviour (audited from the `strategic-game` repository, October 2026) but are
-not legally validated. In particular: governing law, liability wording, children's privacy, and international transfers.
+not legally validated. In particular: liability wording, children's privacy, and international transfers.
 
 ## App and brand consistency
 

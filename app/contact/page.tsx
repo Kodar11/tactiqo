@@ -77,7 +77,9 @@ export default function ContactPage() {
 
       <p className="mt-10 max-w-2xl text-sm leading-relaxed text-slate">
         Looking for how your data is handled? See the <Link href="/privacy" className="text-blue-text underline underline-offset-4">Privacy Policy</Link>.
-        You can export or reset your learning data yourself in the app under Settings.
+        You can export or reset your learning data, or delete your account, yourself in the app under Settings. See{" "}
+        <Link href="/delete-account" className="text-blue-text underline underline-offset-4">Delete Your Account</Link> for what
+        deletion removes.
       </p>
     </Container>
   );

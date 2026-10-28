@@ -5,11 +5,7 @@ import { site } from "@/lib/site-config";
 
 /** Owner-supplied facts, rendered either as the confirmed value or as a visible placeholder. */
 
-export const OwnerName = () => <>{site.owner.name ?? <Missing>owner or business name</Missing>}</>;
-
-export const OwnerAddress = () => <>{site.owner.address ?? <Missing>contact address, if required</Missing>}</>;
-
-export const Jurisdiction = () => <>{site.owner.jurisdiction ?? <Missing>governing law and courts</Missing>}</>;
+export const DataRegion = () => <>{site.legal.dataRegion ?? <Missing>Supabase project region</Missing>}</>;
 
 export const MinimumAge = () =>
   site.legal.minimumAge !== null ? <>{site.legal.minimumAge}</> : <Missing>minimum age</Missing>;

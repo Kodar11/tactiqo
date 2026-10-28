@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { Jurisdiction, MinimumAge, OwnerName, SupportContact } from "@/components/legal-facts";
-import { LegalLayout, type LegalSection, Missing } from "@/components/legal-layout";
+import { MinimumAge, SupportContact } from "@/components/legal-facts";
+import { LegalLayout, type LegalSection } from "@/components/legal-layout";
 import { legalReady, site } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -18,8 +18,8 @@ const sections: LegalSection[] = [
     title: "Accepting these terms",
     body: (
       <p>
-        These terms apply to the Tactiqo website and the Tactiqo mobile app (together, &ldquo;Tactiqo&rdquo;), provided by{" "}
-        <OwnerName />. By using Tactiqo you agree to them. If you don&apos;t agree, please don&apos;t use it.
+        These terms apply to the Tactiqo website and the Tactiqo mobile app (together, &ldquo;Tactiqo&rdquo; or &ldquo;the
+        service&rdquo;). By using Tactiqo you agree to them. If you don&apos;t agree, please don&apos;t use it.
       </p>
     ),
   },
@@ -63,12 +63,20 @@ const sections: LegalSection[] = [
     id: "account",
     title: "Your anonymous account",
     body: (
-      <p>
-        The app works without registration: it creates an anonymous account tied to your installation. Progress is saved to our
-        server under that account. Reinstalling the app, clearing its data or changing devices starts a new account, and the
-        previous progress can no longer be reached from the app. The <Link href="/privacy">Privacy Policy</Link> explains what is
-        stored.
-      </p>
+      <>
+        <p>
+          The app works without registration: it creates an anonymous account tied to your installation. Progress is saved to
+          our server under that account. Reinstalling the app, clearing its data or changing devices starts a new account, and
+          the previous progress can no longer be reached from the app. The <Link href="/privacy">Privacy Policy</Link> explains
+          what is stored.
+        </p>
+        <p>
+          You can stop using Tactiqo at any time, and you can delete your account in the app under Settings → Account →{" "}
+          <em>Delete account</em>. Deleting is permanent: your progress, nickname and game records are removed and can&apos;t be
+          restored. If you can&apos;t delete it in the app, email <SupportContact />.{" "}
+          <Link href="/delete-account">Delete Your Account</Link> explains what is removed.
+        </p>
+      </>
     ),
   },
   {
@@ -95,8 +103,8 @@ const sections: LegalSection[] = [
     title: "Intellectual property",
     body: (
       <p>
-        The Tactiqo name and icon, the lessons, scenarios, illustrations, narration, games and software belong to <OwnerName /> or
-        its licensors. You may use Tactiqo for your own personal, non-commercial learning. Please don&apos;t copy, resell or
+        The Tactiqo name and icon, the lessons, scenarios, illustrations, games and software belong to Tactiqo or its
+        licensors. You may use Tactiqo for your own personal, non-commercial learning. Please don&apos;t copy, resell or
         republish its content without permission. Sharing a friend-challenge link or your own exported data is fine.
       </p>
     ),
@@ -126,18 +134,11 @@ const sections: LegalSection[] = [
     id: "disclaimers",
     title: "Disclaimers and liability",
     body: (
-      <>
-        <p>
-          To the extent the law allows, Tactiqo is provided &ldquo;as is&rdquo; without warranties of any kind, and we are not
-          liable for indirect or consequential losses, or for decisions you make based on what you explore in Tactiqo. Nothing in
-          these terms limits rights you have under consumer law that cannot be excluded.
-        </p>
-        {site.owner.jurisdiction === null ? (
-          <p>
-            <Missing>review this section against the governing law before publishing</Missing>
-          </p>
-        ) : null}
-      </>
+      <p>
+        To the extent the law allows, Tactiqo is provided &ldquo;as is&rdquo; without warranties of any kind, and we are not
+        liable for indirect or consequential losses, or for decisions you make based on what you explore in Tactiqo. Nothing in
+        these terms limits rights you have under consumer law that cannot be excluded.
+      </p>
     ),
   },
   {
@@ -147,15 +148,6 @@ const sections: LegalSection[] = [
       <p>
         We may update these terms. We will change the effective date above, and give notice on this website or in the app for
         significant changes. Continuing to use Tactiqo after changes take effect means you accept them.
-      </p>
-    ),
-  },
-  {
-    id: "law",
-    title: "Governing law",
-    body: (
-      <p>
-        These terms are governed by the laws of <Jurisdiction />.
       </p>
     ),
   },

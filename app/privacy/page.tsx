@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-import { MinimumAge, OwnerAddress, OwnerName, SupportContact } from "@/components/legal-facts";
-import { LegalLayout, type LegalSection, Missing } from "@/components/legal-layout";
+import { DataRegion, MinimumAge, SupportContact } from "@/components/legal-facts";
+import { LegalLayout, type LegalSection } from "@/components/legal-layout";
 import { legalReady, site } from "@/lib/site-config";
 
 export const metadata: Metadata = {
@@ -19,8 +19,8 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          Tactiqo (the website and the mobile app) is operated by <OwnerName />, who is responsible for the information
-          described here. Contact: <SupportContact />. Address: <OwnerAddress />.
+          This policy covers Tactiqo: the website and the mobile app. For any question or request about the information
+          described here, contact us at <SupportContact />.
         </p>
       </>
     ),
@@ -61,7 +61,7 @@ const sections: LegalSection[] = [
         <p>
           <strong>Server logs.</strong> Like any website, the server that delivers these pages receives technical information
           with each request, such as your IP address, browser type and the page requested, and may log it for security and
-          reliability. The site is hosted by <Missing>hosting provider and its log retention</Missing>.
+          reliability. The site is hosted by Vercel, which handles this information under its own privacy policy.
         </p>
         <p>
           <strong>Contact.</strong> If you email us, we receive your email address and whatever you write, and use them only to
@@ -117,13 +117,13 @@ const sections: LegalSection[] = [
         </p>
         <h3>On your device only</h3>
         <p>
-          Your settings (narration, reduce motion, haptics, whether you have finished the welcome screens), the session token,
-          and a short queue of changes that haven&apos;t reached the server yet.
+          Your settings (reduce motion, haptics, whether you have finished the welcome screens), which games&apos; rules you have
+          already read, the session token, and a short queue of changes that haven&apos;t reached the server yet.
         </p>
         <h3>What the app does not collect</h3>
         <p>
           The app does not ask for or access your location, contacts, photos, camera or microphone, and contains no advertising,
-          analytics or crash-reporting SDKs. Lesson narration is pre-recorded audio included in the app.
+          analytics or crash-reporting SDKs.
         </p>
       </>
     ),
@@ -150,7 +150,11 @@ const sections: LegalSection[] = [
       <>
         <p>
           <strong>Our backend provider.</strong> App data is stored and processed by Supabase, which provides the database and
-          anonymous sign-in on our behalf. Data is held in <Missing>Supabase project region</Missing>.
+          anonymous sign-in on our behalf. Data is held in <DataRegion />.
+        </p>
+        <p>
+          <strong>Website hosting.</strong> The website is hosted by Vercel, which receives the technical request information
+          described above.
         </p>
         <p>
           <strong>Other players</strong> see your nickname (if any), scores and ranks on leaderboards, and your result on a
@@ -174,13 +178,15 @@ const sections: LegalSection[] = [
     body: (
       <>
         <p>
-          App data is kept while your anonymous account exists, for <Missing>retention period</Missing>. Weekly competition
-          results are kept as a permanent record of each finished week.
+          App data is kept until your account is deleted, either by you in the app or by us at your request. The app&apos;s
+          backend does not delete it on a schedule. Results of finished Game of the Week competitions are kept as a record of
+          each week while the players&apos; accounts exist.
         </p>
         <p>
           Because the account is anonymous, it lives on your device: if you reinstall the app, clear its data or switch devices,
-          the app starts a new anonymous account and can no longer reach the old progress, which remains on the server until it is
-          deleted under the policy above.
+          the app starts a new anonymous account and can no longer reach the old progress, which remains on the server. The
+          in-app option can then only delete the new account; to delete the old one, contact us (see{" "}
+          <Link href="/delete-account">Delete Your Account</Link>).
         </p>
       </>
     ),
@@ -192,7 +198,7 @@ const sections: LegalSection[] = [
       <>
         <ul>
           <li>
-            <strong>Export:</strong> Settings → Learning data → <em>Export learning data</em> saves your predictions, answers and
+            <strong>Export:</strong> Settings → Learning data → <em>Export data</em> saves your predictions, answers and
             lesson progress as a JSON file.
           </li>
           <li>
@@ -203,10 +209,37 @@ const sections: LegalSection[] = [
             <strong>Nickname:</strong> skip it, or change it at any time in Settings.
           </li>
           <li>
-            <strong>Deletion:</strong> the app does not yet offer a way to delete everything stored for your account. To request
-            deletion, contact <SupportContact />. <Missing>how a user identifies their anonymous account for deletion</Missing>
+            <strong>Delete account:</strong> Settings → Account → <em>Delete account</em>, then confirm. See below.
           </li>
         </ul>
+        <h3>Deleting your account</h3>
+        <p>
+          After you confirm, the app asks our server to delete your anonymous account. The server deletes your anonymous sign-in
+          record and, with it, everything stored under it: lesson progress, predictions and answers, scenario and checkpoint
+          results, challenge drafts, your learning goal, Daily Challenge answers, your nickname (which becomes free for others),
+          practice game history, Game of the Week results, and friend challenges you created together with the matches others
+          played on them. The app reports success only once the server confirms. It then signs out on your device, clears the
+          progress and pending changes held there, and starts again as a new anonymous player. Your device preferences (reduce
+          motion, haptics) are kept.
+        </p>
+        <p>Some limits to be aware of:</p>
+        <ul>
+          <li>Deletion can&apos;t be undone. To keep a copy, use <em>Export data</em> first.</li>
+          <li>Finished weekly rankings aren&apos;t recalculated, so other players keep the ranks they had.</li>
+          <li>Files you exported or shared stay wherever you saved or sent them.</li>
+          <li>
+            Deletion removes the data from the live database. Our backend provider may keep backups of the database, and we
+            can&apos;t confirm that copies in them are removed at the same time.
+          </li>
+          <li>
+            If deletion fails (for example, with no connection), the app tells you and nothing is deleted. Try again, or close and
+            reopen the app if it says your session couldn&apos;t be confirmed.
+          </li>
+        </ul>
+        <p>
+          If you can&apos;t delete your account in the app, email <SupportContact /> and include your nickname if you set one, as
+          the app doesn&apos;t show an account ID. See <Link href="/delete-account">Delete Your Account</Link>.
+        </p>
         <p>
           Depending on where you live, you may have rights to access, correct, delete or object to the processing of your
           personal information, and to complain to a data protection authority. Contact us to exercise them.

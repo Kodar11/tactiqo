@@ -16,23 +16,21 @@ export const site = {
   playStoreUrl: null as string | null,
 
   /** A monitored support inbox. Unset: the contact page says no channel is configured yet. */
-  supportEmail: null as string | null,
+  supportEmail: "tanmaychavan13@gmail.com" as string | null,
 
-  /** The person or business responsible for the app and site, as it should appear in legal text and the copyright line. */
+  /** The person or business responsible for the app and site, as it should appear in the copyright line. */
   owner: {
     name: null as string | null,
-    /** Postal or registered address, if the owner chooses to publish one (some app stores require it). */
-    address: null as string | null,
-    /** Country or state whose law governs the Terms. */
-    jurisdiction: null as string | null,
   },
 
   legal: {
     /** ISO dates, e.g. "2026-11-01". Unset: the legal pages are marked as drafts and kept out of search indexes. */
-    privacyEffectiveDate: null as string | null,
-    termsEffectiveDate: null as string | null,
+    privacyEffectiveDate: "2026-10-28" as string | null,
+    termsEffectiveDate: "2026-10-28" as string | null,
     /** Minimum age for using the app, once decided. */
-    minimumAge: null as number | null,
+    minimumAge: 13 as number | null,
+    /** Where the app's Supabase project stores data, from the project's dashboard settings. Unset: the policy is a draft. */
+    dataRegion: null as string | null,
   },
 
   /** Used in the copyright notice. Static on purpose: a prerendered page can't read the clock. */
@@ -50,9 +48,12 @@ export const appFacts = {
 
 export const isDownloadAvailable = () => site.playStoreUrl !== null;
 
-/** Legal pages are final only when the owner and dates are confirmed. */
+/** Legal pages are final only when their effective dates and every fact they state are confirmed. */
 export const legalReady = () =>
-  site.owner.name !== null && site.legal.privacyEffectiveDate !== null && site.legal.termsEffectiveDate !== null;
+  site.legal.privacyEffectiveDate !== null &&
+  site.legal.termsEffectiveDate !== null &&
+  site.legal.minimumAge !== null &&
+  site.legal.dataRegion !== null;
 
 export function formatDate(iso: string) {
   return new Date(`${iso}T00:00:00Z`).toLocaleDateString("en-GB", {

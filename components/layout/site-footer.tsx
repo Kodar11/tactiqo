@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/contact", label: "Support" },
   { href: "/privacy", label: "Privacy Policy" },
   { href: "/terms", label: "Terms & Conditions" },
+  { href: "/delete-account", label: "Delete Account" },
 ];
 
 export function SiteFooter() {
